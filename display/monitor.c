@@ -38,6 +38,14 @@
 #define MONITOR_VER_RES        LV_VER_RES
 #endif
 
+#ifndef SDL_DISPLAY_NUM
+# define WINDOWPOS_X SDL_WINDOWPOS_UNDEFINED_DISPLAY(SDL_DISPLAY_NUM)
+# define WINDOWPOS_Y SDL_WINDOWPOS_UNDEFINED_DISPLAY(SDL_DISPLAY_NUM)
+#else
+# define WINDOWPOS_X SDL_WINDOWPOS_UNDEFINED
+# define WINDOWOS_Y SDL_WINDOWPOS_UNDEFINED
+#endif
+
 /**********************
  *      TYPEDEFS
  **********************/
@@ -344,7 +352,7 @@ static void monitor_sdl_init(void)
 static void window_create(monitor_t * m)
 {
     m->window = SDL_CreateWindow("TFT Simulator",
-                              SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED,
+                              WINDOWPOS_X, WINDOWPOS_Y,
                               MONITOR_HOR_RES * MONITOR_ZOOM, MONITOR_VER_RES * MONITOR_ZOOM, 0);       /*last param. SDL_WINDOW_BORDERLESS to hide borders*/
 
     m->renderer = SDL_CreateRenderer(m->window, -1, SDL_RENDERER_SOFTWARE);
